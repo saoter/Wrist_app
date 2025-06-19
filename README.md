@@ -9,8 +9,8 @@ This is an automated document processing pipeline built for Wrist. It watches a 
 1. **Monitors** the `documents/` folder for new PDF files.
 2. **Extracts** key invoice fields from scanned PDFs using an LLM prompt (via [Ollama](https://ollama.com/)).
 3. **Enriches** the data with:
-   - Lloyd's vessel registry data (`scripts/lookup_lloyd.py`)
-   - Wrist MDM Customer database (`data/Wrist MDM Live Customers 24-Apr-25.xlsx`)
+   - Lloyd's vessel registry data
+   - Wrist MDM Customer database
 4. **Compares** extracted vs. registered data (e.g. billing counterpart, billing address).
 5. **Saves** structured results to `.json` and moves processed PDFs to `documents/processed/`.
 
@@ -43,4 +43,38 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
+
+---
+
+## 🧠 Ollama Setup
+
+Make sure Ollama is installed and running locally:
+
+```bash
+ollama run gemma3
+---
+
+It must be accessible at http://127.0.0.1:11434. You can test it with a simple cURL call:
+
+
+```bash
+curl http://127.0.0.1:11434/api/tags
+---
+
+## ▶️ Usage
+
+To start watching for PDFs and process them automatically:
+
+```bash
+python app.py
+---
+
+Drop a new PDF into documents/ — the app will:
+
+   - Process it via LLM
+
+   - Save .json output
+
+   - Move the PDF to documents/processed/
+
 

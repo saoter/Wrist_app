@@ -20,16 +20,27 @@ This is an automated document processing pipeline built for Wrist. It watches a 
 
 project/
 ├── app.py # Watches folder and triggers processing
+
 ├── extract_from_pdf.py # Main logic: OCR → LLM → matching → JSON output
+
 ├── scripts/
+
 │ ├── get_new_file.py # Detects new PDFs
+
 │ ├── lookup_lloyd.py # Searches Lloyd’s vessel data
+
 │ └── lookup_customer.py # Searches MDM customer data
+
 ├── data/
+
 │ ├── vessel_db.csv # Lloyd’s vessel registry
+
 │ └── Wrist MDM Live Customers 24-Apr-25.xlsx # Customer records
+
 ├── documents/
+
 │ ├── [incoming PDFs]
+
 │ └── processed/ # Processed PDFs moved here
 
 

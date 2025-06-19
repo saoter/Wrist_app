@@ -53,6 +53,8 @@ Make sure Ollama is installed and running locally:
 
 ```bash
 ollama run gemma3
+```
+
 ---
 
 It must be accessible at http://127.0.0.1:11434. You can test it with a simple cURL call:
@@ -60,6 +62,8 @@ It must be accessible at http://127.0.0.1:11434. You can test it with a simple c
 
 ```bash
 curl http://127.0.0.1:11434/api/tags
+```
+
 ---
 
 ## ▶️ Usage
@@ -68,6 +72,8 @@ To start watching for PDFs and process them automatically:
 
 ```bash
 python app.py
+```
+
 ---
 
 Drop a new PDF into documents/ — the app will:

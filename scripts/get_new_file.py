@@ -4,6 +4,7 @@ import time
 import subprocess
 from pathlib import Path
 import shutil
+from typing import Optional
 
 DOCUMENTS_DIR = Path("documents")
 PROCESSED_DIR = DOCUMENTS_DIR / "processed"
@@ -38,6 +39,10 @@ def get_new_pdf_path() -> Path | None:
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Failed to process {latest_pdf.name}: {e}")
     return None
+
+def get_latest_file(prefix: str, folder: Path = Path("data")) -> Optional[Path]:
+    files = sorted(folder.glob(f"{prefix}*.xlsx"), key=lambda f: f.stat().st_mtime, reverse=True)
+    return files[0] if files else None
 
 if __name__ == "__main__":
     print("🚀 Watching for new PDFs in 'documents/'...")

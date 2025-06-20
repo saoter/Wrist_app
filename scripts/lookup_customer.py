@@ -2,17 +2,21 @@
 
 import pandas as pd
 from pathlib import Path
+from scripts.get_new_file import get_latest_file
 
-CUSTOMER_DB_PATH = Path("data/Wrist MDM Live Customers 24-Apr-25.xlsx")
-CUSTOMER_SHEET_NAME = 0  # Or set explicitly to the sheet name if needed
+CUSTOMER_SHEET_NAME = 0  
 
 _cached_df = None
 
 def _load_customer_db() -> pd.DataFrame:
     global _cached_df
     if _cached_df is None:
-        print("[INFO] Loading customer database into memory...")
-        _cached_df = pd.read_excel(CUSTOMER_DB_PATH, sheet_name=CUSTOMER_SHEET_NAME, dtype=str)
+        latest_customer_file = get_latest_file("Wrist")
+        if latest_customer_file is None or not latest_customer_file.exists():
+            raise FileNotFoundError("No Wrist*.xlsx file found in /data")
+
+        print(f"[INFO] Loading customer database from {latest_customer_file.name} into memory...")
+        _cached_df = pd.read_excel(latest_customer_file, sheet_name=CUSTOMER_SHEET_NAME, dtype=str)
         _cached_df.fillna("", inplace=True)
     return _cached_df
 

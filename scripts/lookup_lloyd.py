@@ -1,20 +1,21 @@
-# scripts/lookup_lloyd.py
-
 import pandas as pd
 import os
+from scripts.get_new_file import get_latest_file
+from pathlib import Path
 
-def find_matching_row(vessel_name: str, vessel_number: str, lloyds_path: str = "data/LloydsCurrentOwnership 28-Apr-2025.xlsx") -> dict:
+def find_matching_row(vessel_name: str, vessel_number: str) -> dict:
+    # Get latest Lloyds file
+    lloyds_path = get_latest_file("Lloyds")
+    if lloyds_path is None or not lloyds_path.exists():
+        raise FileNotFoundError("No Lloyds*.xlsx file found in /data")
+
     # Normalize input
     vessel_name = vessel_name.strip().lower() if vessel_name else None
     vessel_number = str(vessel_number).strip() if vessel_number else None
 
-    if not os.path.exists(lloyds_path):
-        raise FileNotFoundError(f"Lloyds Excel file not found at: {lloyds_path}")
-
     df = pd.read_excel(lloyds_path)
 
     match = None
-
     for _, row in df.iterrows():
         imo = str(row.get("IMO No", "")).strip()
         name = str(row.get("Vessel Name", "")).strip().lower()

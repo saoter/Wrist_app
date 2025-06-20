@@ -34,8 +34,8 @@ This is an automated document processing pipeline built for Wrist. It watches a 
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/wrist-vessel-invoice-extractor.git
-cd wrist-vessel-invoice-extractor
+git clone https://github.com/saoter/Wrist_app
+cd Wrist_app
 
 # 2. Create a virtual environment (recommended)
 python -m venv venv
